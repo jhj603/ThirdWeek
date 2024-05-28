@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpPower: 80
+  jumpUseStemina: 5
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 55
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.1

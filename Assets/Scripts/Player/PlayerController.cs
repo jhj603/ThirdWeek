@@ -13,37 +13,21 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseDelta;
     private float camCurXRot;
 
+    private PlayerCondition condition;
     private Rigidbody rigidbody;
-    private CharacterStatsHandler characterStats;
+    private MoveSO moveData;
 
     private void Awake()
     {
-        if (!TryGetComponent<Rigidbody>(out rigidbody))
-        {
-            Debug.Log("Rigidbody È¹µæ ½ÇÆÐ!");
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
-        }
-
-        if (!TryGetComponent<CharacterStatsHandler>(out characterStats))
-        {
-            Debug.Log("CharacterStatsHandler È¹µæ ½ÇÆÐ!");
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
-        }
+        rigidbody = GetComponent<Rigidbody>();
+        condition = GetComponent<PlayerCondition>();
     }
 
     // Start is called before the first frame update
-    //void Start()
-    //{
-        
-    //}
+    void Start()
+    {
+        moveData = CharacterManager.Instance.MainPlayer.MoveData;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -60,7 +44,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 dir = (transform.forward * curMovementInput.y) + (transform.right * curMovementInput.x);
 
-        dir *= characterStats.CurrentStat.moveSO.moveSpeed;
+        dir *= moveData.moveSpeed;
 
         dir.y = rigidbody.velocity.y;
 
@@ -69,13 +53,11 @@ public class PlayerController : MonoBehaviour
 
     private void CameraLook()
     {
-        MoveSO move = characterStats.CurrentStat.moveSO;
-
-        camCurXRot += mouseDelta.y * move.lookSensitivity;
-        camCurXRot = Mathf.Clamp(camCurXRot, move.minXLook, move.maxXLook);
+        camCurXRot += mouseDelta.y * moveData.lookSensitivity;
+        camCurXRot = Mathf.Clamp(camCurXRot, moveData.minXLook, moveData.maxXLook);
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0f, 0f);
 
-        transform.eulerAngles += new Vector3(0f, mouseDelta.x * move.lookSensitivity, 0f);
+        transform.eulerAngles += new Vector3(0f, mouseDelta.x * moveData.lookSensitivity, 0f);
     }
 
     private bool IsGrounded()
@@ -90,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < rays.Length; ++i)
         {
-            if (Physics.Raycast(rays[i], 0.1f, characterStats.CurrentStat.moveSO.groundLayerMask))
+            if (Physics.Raycast(rays[i], 0.1f, moveData.groundLayerMask))
                 return true;
         }
 
@@ -112,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if ((InputActionPhase.Started == context.phase) && IsGrounded())
-            rigidbody.AddForce(Vector2.up * characterStats.CurrentStat.moveSO.jumpPower, ForceMode.Impulse);
+        if ((InputActionPhase.Started == context.phase) && condition.UseStemina(moveData.jumpUseStemina) && IsGrounded())
+            rigidbody.AddForce(Vector2.up * moveData.jumpPower, ForceMode.Impulse);
     }
 }
