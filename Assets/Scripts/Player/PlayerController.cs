@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
@@ -17,6 +18,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigidbody;
     private MoveSO moveData;
 
+    public event Action OnInventoryEvent;
+
+    private bool canLook = true;
+
+    public float AddSpeed { get; set; } = 0f;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -27,6 +34,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         moveData = CharacterManager.Instance.MainPlayer.MoveData;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -37,14 +46,15 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        CameraLook();
+        if (canLook)
+            CameraLook();
     }
 
     private void Move()
     {
         Vector3 dir = (transform.forward * curMovementInput.y) + (transform.right * curMovementInput.x);
 
-        dir *= moveData.moveSpeed;
+        dir *= (moveData.moveSpeed + AddSpeed);
 
         dir.y = rigidbody.velocity.y;
 
@@ -96,5 +106,14 @@ public class PlayerController : MonoBehaviour
     {
         if ((InputActionPhase.Started == context.phase) && condition.UseStemina(moveData.jumpUseStemina) && IsGrounded())
             rigidbody.AddForce(Vector2.up * moveData.jumpPower, ForceMode.Impulse);
+    }
+
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if (InputActionPhase.Started == context.phase)
+        {
+            OnInventoryEvent?.Invoke();
+            canLook = !GameManager.Instance.ToggleCursor();
+        }
     }
 }

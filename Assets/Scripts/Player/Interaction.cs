@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interaction : MonoBehaviour
 {
@@ -39,6 +40,19 @@ public class Interaction : MonoBehaviour
 
                 curInteractGameObject = null;
             }
+        }
+    }
+
+    public void OnInteractionInput(InputAction.CallbackContext context)
+    {
+        if ((InputActionPhase.Started == context.phase) && (null != curInteractGameObject))
+        {
+            ItemObject curItemObj = curInteractGameObject.GetComponent<ItemObject>();
+
+            curItemObj.OnInteract();
+            curItemObj.OffPrompt();
+
+            curInteractGameObject = null;
         }
     }
 }

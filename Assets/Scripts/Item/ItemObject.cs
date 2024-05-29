@@ -12,7 +12,10 @@ public class ItemObject : MonoBehaviour
 
     public void OnInteract()
     {
+        CharacterManager.Instance.MainPlayer.ItemData = itemData;
+        CharacterManager.Instance.MainPlayer.OnAddItemEvent?.Invoke();
 
+        Destroy(gameObject);
     }
 
     public void OnPrompt()
