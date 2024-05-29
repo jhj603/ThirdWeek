@@ -9,7 +9,8 @@ public enum ItemType
 public enum ConsumableType
 {
     Health,
-    Stemina
+    Boost,
+    Invincibillity
 }
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
@@ -41,4 +42,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         DontDestroyOnLoad(transform.root.gameObject);
     }
+}
+
+public interface IInteractable
+{
+    public string GetInteractName();
+    public string GetInteractPrompt();
+    public void OnInteract();
 }

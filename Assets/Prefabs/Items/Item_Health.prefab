@@ -374,7 +374,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &771554623854630204
 Transform:
@@ -555,6 +555,7 @@ GameObject:
   - component: {fileID: 3195987940396632158}
   - component: {fileID: 4958344732050482604}
   - component: {fileID: 1448439902884104783}
+  - component: {fileID: 3930761091886511146}
   m_Layer: 9
   m_Name: Item_Health
   m_TagString: Untagged
@@ -627,3 +628,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3930761091886511146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8011293205364858163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286260e19ba3f804b88ca33cae285178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: b1427186d916fef4aae9bd32233fabf5, type: 2}
+  promptBackGround: {fileID: 7560507292506242679}
+  promptNameText: {fileID: 21527668269087499}
+  promptDescText: {fileID: 1963170288217533922}
