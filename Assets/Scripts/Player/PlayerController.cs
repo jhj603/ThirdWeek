@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour, IJumpable
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if ((InputActionPhase.Started == context.phase) && condition.UseStemina(moveData.jumpUseStemina) && IsGrounded())
+        if ((InputActionPhase.Started == context.phase) && IsGrounded() && condition.UseStemina(moveData.jumpUseStemina))
             rigidbody.AddForce(Vector2.up * moveData.jumpPower, ForceMode.Impulse);
     }
 
