@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TreeEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IJumpable
 {
     [SerializeField] private Transform cameraContainer;
 
@@ -21,8 +22,11 @@ public class PlayerController : MonoBehaviour
     public event Action OnInventoryEvent;
 
     private bool canLook = true;
+    private bool isFirst = true;
 
     public float AddSpeed { get; set; } = 0f;
+
+    public MovingFloor Movingfloor { get; set; }
 
     private void Awake()
     {
@@ -58,6 +62,9 @@ public class PlayerController : MonoBehaviour
 
         dir.y = rigidbody.velocity.y;
 
+        if (null != Movingfloor)
+            transform.position += Movingfloor.GetMoveDirection();
+
         rigidbody.velocity = dir;
     }
 
@@ -65,9 +72,21 @@ public class PlayerController : MonoBehaviour
     {
         camCurXRot += mouseDelta.y * moveData.lookSensitivity;
         camCurXRot = Mathf.Clamp(camCurXRot, moveData.minXLook, moveData.maxXLook);
+
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0f, 0f);
 
         transform.eulerAngles += new Vector3(0f, mouseDelta.x * moveData.lookSensitivity, 0f);
+
+        if (isFirst)
+        {
+            cameraContainer.position = transform.position - (cameraContainer.rotation * new Vector3(0f, 0f, -0.3f));
+            cameraContainer.position += new Vector3(0f, 1.1f, 0f);
+        }
+        else
+        {
+            cameraContainer.position = transform.position - (cameraContainer.rotation * new Vector3(0f, 0f, 2f));
+            cameraContainer.position += new Vector3(0f, 1f, 0f);
+        }
     }
 
     private bool IsGrounded()
@@ -87,6 +106,11 @@ public class PlayerController : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void Jumping(float jumpPower)
+    {
+        rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -115,5 +139,11 @@ public class PlayerController : MonoBehaviour
             OnInventoryEvent?.Invoke();
             canLook = !GameManager.Instance.ToggleCursor();
         }
+    }
+
+    public void OnChangeView(InputAction.CallbackContext context)
+    {
+        if (InputActionPhase.Started == context.phase)
+            isFirst = !isFirst;
     }
 }

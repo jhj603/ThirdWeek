@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerCondition : MonoBehaviour
+public class PlayerCondition : MonoBehaviour, IDamageable
 {
     public UIConditions UICondition { get; set; }
     
-    public Condition Health {  get { return UICondition.Health; } }
+    public Condition Health { get { return UICondition.Health; } }
     public Condition Stemina { get { return UICondition.Stemina; } }
 
     public event Action OnTakeDamage;

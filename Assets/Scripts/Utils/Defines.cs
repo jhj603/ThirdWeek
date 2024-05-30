@@ -50,3 +50,13 @@ public interface IInteractable
     public string GetInteractPrompt();
     public void OnInteract();
 }
+
+public interface IDamageable
+{
+    void TakePhysicalDamage(int damage);
+}
+
+public interface IJumpable
+{
+    void Jumping(float jumpPower);
+}

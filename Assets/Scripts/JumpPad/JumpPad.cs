@@ -8,7 +8,9 @@ public class JumpPad : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Rigidbody rigidbody = collision.gameObject.GetComponent<Rigidbody>();
-        rigidbody.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+        if (collision.gameObject.TryGetComponent(out IJumpable jumpable))
+        {
+            jumpable.Jumping(jumpForce);
+        }
     }
 }
