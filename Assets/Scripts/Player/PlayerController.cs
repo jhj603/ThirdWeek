@@ -56,11 +56,24 @@ public class PlayerController : MonoBehaviour, IJumpable
 
     private void Move()
     {
-        Vector3 dir = (transform.forward * curMovementInput.y) + (transform.right * curMovementInput.x);
+        Vector3 dir;
 
-        dir *= (moveData.moveSpeed + AddSpeed);
+        if (!IsOnWall())
+        {
+            dir = (transform.forward * curMovementInput.y) + (transform.right * curMovementInput.x);
 
-        dir.y = rigidbody.velocity.y;
+            dir *= (moveData.moveSpeed + AddSpeed);
+
+            dir.y = rigidbody.velocity.y;
+        }
+        else
+        {
+            dir = (transform.up * curMovementInput.y) + (transform.right * curMovementInput.x);
+
+            dir *= (moveData.moveSpeed + AddSpeed);
+
+            dir.z = rigidbody.velocity.z;
+        }
 
         if (null != Movingfloor)
             transform.position += Movingfloor.GetMoveDirection();
@@ -102,6 +115,25 @@ public class PlayerController : MonoBehaviour, IJumpable
         for (int i = 0; i < rays.Length; ++i)
         {
             if (Physics.Raycast(rays[i], 0.1f, moveData.groundLayerMask))
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsOnWall()
+    {
+        Ray[] rays = new Ray[4]
+        {
+            new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), transform.forward),
+            new Ray(transform.position + (transform.forward * -0.2f) + (transform.up * 0.01f), -transform.forward),
+            new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), transform.right),
+            new Ray(transform.position + (transform.right * -0.2f) + (transform.up * 0.01f), -transform.right)
+        };
+
+        for (int i = 0; i < rays.Length; ++i)
+        {
+            if (Physics.Raycast(rays[i], 0.5f, moveData.wallLayerMask))
                 return true;
         }
 
