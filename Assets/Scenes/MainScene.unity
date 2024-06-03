@@ -18430,10 +18430,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2602957678299999934, guid: e27e45342e5f3ae458ce15012de4a791, type: 3}
-      propertyPath: shootPower
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5721971952622309295, guid: e27e45342e5f3ae458ce15012de4a791, type: 3}
       propertyPath: m_Name
       value: SpearTrap
@@ -18519,10 +18515,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8766851596169125937, guid: e27e45342e5f3ae458ce15012de4a791, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8766851596169125937, guid: e27e45342e5f3ae458ce15012de4a791, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -17,12 +17,12 @@ public class SpearTrap : MonoBehaviour
         {
             lastCheckTime = Time.time;
 
-            if (Physics.SphereCast(transform.position, 0.5f, transform.up, out RaycastHit hit, 1f, layerMask))
+            if (Physics.SphereCast(transform.position, 1.5f, transform.up, out RaycastHit hit, 10f, layerMask))
             {
                 if (!Spears.IsShoot)
                     Spears.ShootUp();
             }
-            else
+            else if (Spears.IsShoot)
             {
                 Spears.GoReady();
             }
