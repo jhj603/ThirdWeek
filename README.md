@@ -28,7 +28,15 @@ Unity로 만든 3D 던전 맵 탐색 게임입니다.
 ![2024-06-03 16-04-09](https://github.com/jhj603/ThirdWeek/assets/82034869/2df473c3-886a-414b-ada6-16352f5d0050)
 
 4. 점프대
+
+![2024-06-03 16-12-49](https://github.com/jhj603/ThirdWeek/assets/82034869/9040d03e-b231-4103-a18c-73243dc766e8)
+
 5. 아이템 데이터
+
+![image](https://github.com/jhj603/ThirdWeek/assets/82034869/80b2206b-1a2e-46c6-801b-ce5aa187b145)
+![image](https://github.com/jhj603/ThirdWeek/assets/82034869/07219f2a-71b7-4b6b-a3f7-5903e0c9f994)
+![image](https://github.com/jhj603/ThirdWeek/assets/82034869/dd660ad2-f142-4792-bbb2-b582778a33ec)
+
 6. 아이템 사용
 * 선택 요구사항
 1. 추가 UI
