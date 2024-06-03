@@ -22,7 +22,11 @@ Unity로 만든 3D 던전 맵 탐색 게임입니다.
 2. 체력바 UI
    
 ![제목 없음](https://github.com/jhj603/ThirdWeek/assets/82034869/5926c6e2-da07-44e2-9d4f-e425cf7c9d6f)
+
 3. 동적 환경 조사
+
+![2024-06-03 16-04-09](https://github.com/jhj603/ThirdWeek/assets/82034869/2df473c3-886a-414b-ada6-16352f5d0050)
+
 4. 점프대
 5. 아이템 데이터
 6. 아이템 사용
