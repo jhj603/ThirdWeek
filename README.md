@@ -59,3 +59,5 @@ Unity로 만든 3D 던전 맵 탐색 게임입니다.
 ![2024-06-03 16-55-44_1](https://github.com/jhj603/ThirdWeek/assets/82034869/41e7d100-269d-48c5-8357-1f8bfc61e712)
 
 5. 다양한 아이템 구현
+
+![2024-06-03 17-24-46_2](https://github.com/jhj603/ThirdWeek/assets/82034869/36b0555b-bed8-4ee4-846b-4d16e9d19e07)
